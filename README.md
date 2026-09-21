@@ -136,6 +136,117 @@ MongoDB
 
 The owning module controls access to its data and business operations.
 
+## Authorization Model
+
+Authorization uses **Role + Scope + Permission**.
+
+### Role — Who are you?
+
+Roles define the user's responsibility within the platform.
+
+```text
+SUPER_ADMIN
+ORGANIZATION_ADMIN
+SUB_ORGANIZATION_ADMIN
+USER
+```
+
+Custom roles can be created for **organization and sub-organization users**.
+
+### Scope — Where can you operate?
+
+Scopes define the boundary within which a role can operate.
+
+```text
+SYSTEM
+ORGANIZATION
+SUB_ORGANIZATION
+PUBLIC
+```
+
+### Permission — What can you do?
+
+Permissions represent business capabilities rather than individual API endpoints.
+
+```text
+EVENT:READ
+EVENT:LIST
+EVENT:CREATE
+EVENT:UPDATE
+EVENT:DELETE
+EVENT:PUBLISH
+```
+
+### Authorization Flow
+
+```text
+Request
+  ↓
+Authentication
+  ↓
+Scope Check
+  ↓
+Permission Check
+  ↓
+Service / Data Boundary
+  ↓
+Repository
+```
+
+For example:
+
+```text
+GET /admin/events
+Scope: SYSTEM
+Permission: EVENT:READ
+```
+
+Only a role with the required **SYSTEM scope** and **EVENT:READ permission** can access this operation.
+
+An `ORGANIZATION_ADMIN` may have:
+
+```text
+Scope: ORGANIZATION
+Permission: EVENT:READ
+```
+
+but cannot access an operation requiring:
+
+```text
+Scope: SYSTEM
+Permission: EVENT:READ
+```
+
+because the role operates within an organization-level boundary.
+
+The core distinction is:
+
+```text
+Role       → Who
+Scope      → Where
+Permission → What
+```
+
+Permissions should remain **business-oriented** rather than being tied to individual endpoints.
+
+Prefer:
+
+```text
+EVENT:CREATE
+EVENT:READ
+EVENT:UPDATE
+```
+
+instead of:
+
+```text
+POST:/events
+GET:/events
+PATCH:/events/:id
+```
+
+This allows the same business permission to be reused across controllers, endpoints, and application workflows.
+
 ## Repository
 
 Services depend on the repository contract, not the MongoDB implementation.
