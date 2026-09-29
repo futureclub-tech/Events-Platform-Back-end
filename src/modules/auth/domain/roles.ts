@@ -1,0 +1,8 @@
+export const ROLE = {
+  SUPER_ADMIN: "SUPER_ADMIN",
+  ORGANIZATION_ADMIN: "ORGANIZATION_ADMIN",
+  SUB_ORGANIZATION_ADMIN: "SUB_ORGANIZATION_ADMIN",
+  USER: "USER",
+} as const;
+
+export type IRole = (typeof ROLE)[keyof typeof ROLE];
