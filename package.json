@@ -1,0 +1,44 @@
+{
+  "name": "eventmangement",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc && tsc-alias",
+    "start": "node dist/server.js",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/futureclub-tech/Events-Platform-Back-end.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/futureclub-tech/Events-Platform-Back-end/issues"
+  },
+  "homepage": "https://github.com/futureclub-tech/Events-Platform-Back-end#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "inversify": "^8.2.3",
+    "reflect-metadata": "^0.2.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.4",
+    "prettier": "^3.9.9",
+    "tsc-alias": "^1.9.7",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.3"
+  }
+}
