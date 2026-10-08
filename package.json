@@ -7,9 +7,9 @@
     "test": "tests"
   },
   "scripts": {
-    "dev": "tsx watch src/server.ts",
+    "dev": "node --env-file-if-exists=.env --import tsx --watch src/server.ts",
     "build": "tsc && tsc-alias",
-    "start": "node dist/server.js",
+    "start": "node --env-file-if-exists=.env dist/server.js",
     "test": "vitest",
     "test:run": "vitest run",
     "format": "prettier . --write",
@@ -28,12 +28,19 @@
   },
   "homepage": "https://github.com/futureclub-tech/Events-Platform-Back-end#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.7",
     "express": "^5.2.1",
     "inversify": "^8.2.3",
-    "reflect-metadata": "^0.2.2"
+    "ioredis": "^6.0.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.11.0",
+    "reflect-metadata": "^0.2.2",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
+    "@types/cookie-parser": "^1.4.10",
     "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^26.6.4",
     "prettier": "^3.9.9",
     "tsc-alias": "^1.9.7",

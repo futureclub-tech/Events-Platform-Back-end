@@ -1,19 +1,22 @@
-import express from "express";
-import { RESPONSE_MESSAGE } from "@/shared/constants/response-message.enum.js";
-import { errorHandler } from "@/shared/middleware/error-handler.js";
-import { notFoundHandler } from "@/shared/middleware/not-found.js";
-import { successResponse } from "@/shared/types/api-response.js";
+import express from 'express';
+import cookieParser from 'cookie-parser';
+import { RESPONSE_MESSAGE } from '@/shared/constants/response-message.enum.js';
+import { errorHandler } from '@/middleware/error-handler.js';
+import { notFoundHandler } from '@/middleware/not-found.js';
+import { successResponse } from '@/shared/types/api-response.js';
+import authRoutes from '@/routes/auth.routes.js';
 
 export const app = express();
 
-app.disable("x-powered-by");
+app.disable('x-powered-by');
 app.use(express.json());
+app.use(cookieParser());
 
-app.get("/health", (_request, response) => {
-  response.json(
-    successResponse(RESPONSE_MESSAGE.HEALTH_CHECK_SUCCESS, { status: "ok" }),
-  );
+app.get('/health', (_request, response) => {
+  response.json(successResponse(RESPONSE_MESSAGE.HEALTH_CHECK_SUCCESS, { status: 'ok' }));
 });
+
+app.use('/api/v1/auth', authRoutes);
 
 app.use(notFoundHandler);
 app.use(errorHandler);
