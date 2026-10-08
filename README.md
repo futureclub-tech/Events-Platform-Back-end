@@ -12,6 +12,11 @@ npm run dev
 The API listens on port `3000` by default. Set `PORT` to change it. `GET /health`
 returns a basic health response.
 
+Login requires independent `ACCESS_TOKEN_SECRET` and `REFRESH_TOKEN_SECRET`
+environment variables. It sets HTTP-only `accessToken` and `refreshToken`
+cookies, expiring after 15 minutes and 7 days respectively. Cookies use the
+`Secure` flag when `NODE_ENV=production`.
+
 ## Response format
 
 Responses use stable machine-readable codes from
